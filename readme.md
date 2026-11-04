@@ -21,7 +21,7 @@ Here is a quick breakdown of what the program practices:
 
 ---
 
-## Original Menu Interface
+## Menu Interface
 
 When you run `Functional Treat.py`, the terminal displays the original main menu interface:
 
@@ -43,6 +43,8 @@ When you run `Functional Treat.py`, the terminal displays the original main menu
 └────────────────────────────────────────────────────────┘
  ➤ Please enter your choice: 
 ```
+
+![Menu Interface](Screenshots/image.png)
 
 ---
 
@@ -68,8 +70,7 @@ Allows you to enter a 1D array manually, construct a 2D matrix row by row, or lo
   │  [SUCCESS] Data has been stored successfully!
   └──────────────────────────────────────────────────────
 ```
-
-
+![Input Data](Screenshots/image%20(1).png)
 
 ---
 
@@ -87,7 +88,7 @@ Calculates essential metrics using Python's built-ins and displays them as key-v
   └──────────────────────────────────────────────────────┘
 ```
 
-
+![Display Data Summary](Screenshots/image%20(2).png)
 
 ---
 
@@ -111,7 +112,7 @@ def factorial(n):
   └──────────────────────────────────────────────────────
 ```
 
-
+![Calculate Factorial](Screenshots/image%20(3).png)
 
 ---
 
@@ -134,7 +135,7 @@ formatted = ", ".join(map(lambda x: str(x), filtered))
   └──────────────────────────────────────────────────────
 ```
 
-
+![Filter Data](Screenshots/image%20(4).png)
 
 ---
 
@@ -154,7 +155,7 @@ Sorts a 1D array in-place using `.sort()` in ascending or descending order, or d
   └──────────────────────────────────────────────────────
 ```
 
-
+![Short Data](Screenshots/image%20(5).png)
 
 ---
 
@@ -180,7 +181,7 @@ def get_dataset_statistics(numbers):
   └──────────────────────────────────────────────────────┘
 ```
 
-
+![Display Dataset Statistics](Screenshots/image%20(6).png)
 
 ---
 
@@ -194,7 +195,7 @@ Exits the application loop cleanly and prints a closing message.
 Thank you for using the Data Analyzer and Transformer Program. Goodbye!
 ```
 
-
+![Exit Program](Screenshots/image%20(7).png)
 
 ---
 
