@@ -1,0 +1,291 @@
+dataset_summary = {}
+
+collected_data = []
+is_2d = False
+
+
+def display_values(*args):
+    """Accepts multiple values using *args and displays them."""
+    print("Values:", ", ".join(map(str, args)))
+
+
+def print_summary(**kwargs):
+    """Prints key-value pairs as a summary of dataset characteristics using **kwargs."""
+    for key, value in kwargs.items():
+        print(f"- {key}: \n{value}")
+
+
+def calculate_average(numbers):
+    """User-defined function to calculate the average of a list of numbers."""
+    if len(numbers) == 0:
+        return 0
+    total = 0
+    for num in numbers:
+        total += num
+    return total / len(numbers)
+
+
+def find_duplicates(numbers):
+    """User-defined function to find duplicate values in a list."""
+    duplicates = []
+    seen = []
+    for num in numbers:
+        if num in seen and num not in duplicates:
+            duplicates.append(num)
+        else:
+            seen.append(num)
+    return duplicates
+
+
+def display_unique_values(numbers):
+    """User-defined function to return unique values from a list."""
+    unique = []
+    for num in numbers:
+        if num not in unique:
+            unique.append(num)
+    return unique
+
+
+def factorial(n):
+    """Calculates the factorial of a number using recursion."""
+    if n <= 1:
+        return 1
+    else:
+        return n * factorial(n - 1)
+
+
+def fibonacci(n):
+    """Calculates the nth Fibonacci number using recursion."""
+    if n <= 0:
+        return 0
+    elif n == 1:
+        return 1
+    else:
+        return fibonacci(n - 1) + fibonacci(n - 2)
+
+
+def get_dataset_statistics(numbers):
+    """Returns multiple statistics: minimum, maximum, sum, and average."""
+    min_val = min(numbers)
+    max_val = max(numbers)
+    total_val = sum(numbers)
+    avg_val = total_val / len(numbers)
+    return min_val, max_val, total_val, avg_val
+
+
+def display_grid(matrix):
+    """Displays a 2D list in a formatted grid structure."""
+    print("\nFormatted 2D Grid:")
+    for row in matrix:
+        for val in row:
+            print(f"{val:4}", end=" ")
+        print()
+
+
+def input_data():
+    """Input Data"""
+    global collected_data, is_2d, dataset_summary
+
+    print("\nInput Data")
+    print("Choose Data Input Option:")
+    print("1. Enter 1D Array Manually")
+    print("2. Enter 2D Array Manually")
+    print("3. Load Sample 1D Data")
+    print("4. Load Sample 2D Data")
+    choice = input("\nEnter your option (1-4): ")
+
+    if choice == "1":
+        data_input = input("\nEnter data for a 1D array (separated by spaces):\n")
+        collected_data = [int(x) for x in data_input.split()]
+        is_2d = False
+        print("\nData has been stored successfully!")
+    elif choice == "2":
+        rows = int(input("\nEnter number of rows: "))
+        matrix = []
+        for r in range(rows):
+            row_input = input(f"Enter values for row {r + 1} (separated by spaces):\n")
+            matrix.append([int(x) for x in row_input.split()])
+        collected_data = matrix
+        is_2d = True
+        print("\nData has been stored successfully!")
+        display_grid(collected_data)
+    elif choice == "3":
+        collected_data = [34, 12, 56, 78, 43, 21, 90]
+        is_2d = False
+        print("\nLoaded Sample 1D Data: 34 12 56 78 43 21 90")
+        print("Data has been stored successfully!")
+    elif choice == "4":
+        collected_data = [[12, 34, 56], [78, 90, 21], [43, 65, 87]]
+        is_2d = True
+        print("\nLoaded Sample 2D Data successfully!")
+        display_grid(collected_data)
+        print("Data has been stored successfully!")
+    else:
+        print("Invalid choice, returning to menu.")
+
+    if not is_2d and len(collected_data) > 0:
+        dataset_summary = {"Total elements": len(collected_data), "Average value": round(calculate_average(collected_data), 2)}
+
+
+def display_summary():
+    """Display Data Summary (Built-in Functions)"""
+    global dataset_summary
+    print("\nDisplay Data Summary (Built-in Functions)")
+
+    if is_2d:
+        flat = [item for sublist in collected_data for item in sublist]
+        total_elements = len(flat)
+        min_value = min(flat)
+        max_value = max(flat)
+        sum_value = sum(flat)
+        avg_value = round(sum_value / total_elements, 2)
+    else:
+        if len(collected_data) == 0:
+            print("No data available. Please input data first.")
+            return
+        total_elements = len(collected_data)
+        min_value = min(collected_data)
+        max_value = max(collected_data)
+        sum_value = sum(collected_data)
+        avg_value = round(calculate_average(collected_data), 2)
+
+    dataset_summary["Total elements"] = total_elements
+    dataset_summary["Average value"] = avg_value
+
+    print("Data Summary:")
+    print_summary(**{"Total elements": total_elements, "Minimum value": min_value, "Maximum value": max_value, "Sum of all values": sum_value, "Average value": avg_value})
+
+
+def calculate_factorial_menu():
+    """Calculate Factorial (Recursion)"""
+    print("\nCalculate Factorial (Recursion)")
+    num = int(input("Enter a number to calculate its factorial: "))
+    if num < 0:
+        print("Factorial is not defined for negative numbers.")
+    else:
+        result = factorial(num)
+        print(f"\nFactorial of {num} is: {result}")
+
+
+def filter_data():
+    """Filter Data by Threshold (Lambda Function)"""
+    print("\nFilter Data by Threshold (Lambda Function)")
+    if len(collected_data) == 0:
+        print("No data available. Please input data first.")
+        return
+
+    threshold = int(input("Enter a threshold value to filter out data above this value:\n"))
+
+    if is_2d:
+        flat = [item for sublist in collected_data for item in sublist]
+        target = flat
+    else:
+        target = collected_data
+
+    filtered = list(filter(lambda x: x >= threshold, target))
+
+    print(f"\nFiltered Data (values >= {threshold}):")
+
+    formatted = ", ".join(map(lambda x: str(x), filtered))
+    print(formatted)
+
+
+def sort_data():
+    """Sort Data"""
+    global collected_data
+    print("\nSort Data")
+    if len(collected_data) == 0:
+        print("No data available. Please input data first.")
+        return
+
+    if is_2d:
+        print("2D List Sorting Options:")
+        print("1. Sort rows by first value using sorted() (returns new list)")
+        print("2. Sort each row in-place using sort()")
+        choice = input("Enter your choice: ")
+        if choice == "1":
+            new_matrix = sorted(collected_data, key=lambda row: row[0])
+            print("\nOriginal 2D List (Preserved):")
+            display_grid(collected_data)
+            print("\nNew Sorted 2D List (via sorted()):")
+            display_grid(new_matrix)
+        else:
+            for row in collected_data:
+                row.sort()
+            print("\nIn-place Sorted 2D List (via sort()):")
+            display_grid(collected_data)
+    else:
+        print("Choose sorting option:")
+        print("1. Ascending")
+        print("2. Descending")
+        choice = input("\nEnter your choice: ")
+
+        if choice == "1":
+            collected_data.sort()
+            print("\nSorted Data in Ascending Order:")
+            print(", ".join(map(str, collected_data)))
+        elif choice == "2":
+            collected_data.sort(reverse=True)
+            print("\nSorted Data in Descending Order:")
+            print(", ".join(map(str, collected_data)))
+        else:
+            print("Invalid sorting option.")
+
+
+def display_dataset_stats():
+    """Display Dataset Statistics (Return Multiple Values)"""
+    print("\nDisplay Dataset Statistics (Return Multiple Values)")
+    if len(collected_data) == 0:
+        print("No data available. Please input data first.")
+        return
+
+    if is_2d:
+        target = [item for sublist in collected_data for item in sublist]
+    else:
+        target = collected_data
+
+    min_val, max_val, total_val, avg_val = get_dataset_statistics(target)
+
+    print("Dataset Statistics:")
+    print(f"- Minimum value: \n{min_val}")
+    print(f"- Maximum value: \n{max_val}")
+    print(f"- Sum of all values: \n{total_val}")
+    print(f"- Average value: \n{avg_val:.2f}")
+
+
+def main():
+    print("Welcome to the Data Analyzer and Transformer Program")
+
+    while True:
+        print("\nMain Menu:")
+        print("1. Input Data")
+        print("2. Display Data Summary")
+        print("3. Calculate Factorial")
+        print("4. Filter Data")
+        print("5. Sort Data")
+        print("6. Display Dataset Statistics")
+        print("7. Exit Program")
+
+        choice = input("Please enter your choice: ")
+
+        if choice == "1":
+            input_data()
+        elif choice == "2":
+            display_summary()
+        elif choice == "3":
+            calculate_factorial_menu()
+        elif choice == "4":
+            filter_data()
+        elif choice == "5":
+            sort_data()
+        elif choice == "6":
+            display_dataset_stats()
+        elif choice == "7":
+            print("\nExit Program")
+            print("Thank you for using the Data Analyzer and Transformer Program. Goodbye!")
+            break
+        else:
+            print("Invalid choice. Please select an option from 1 to 7.")
+
+
+main()
